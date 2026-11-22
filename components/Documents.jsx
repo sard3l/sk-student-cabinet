@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { STUDY_DOCS, DOC_CATEGORIES, findDocBySlug } from '@/lib/study-docs.js';
 
 const TYPES = [
   { key: 'absence', label: 'Справка об отсутствии' },
@@ -47,6 +48,20 @@ export default function Documents({ user, requests }) {
   const [uploadDone, setUploadDone] = useState(false);
   const [file, setFile] = useState(null);
   const [fileError, setFileError] = useState(null);
+
+  const searchParams = useSearchParams();
+  const [openDoc, setOpenDoc] = useState(null);
+
+  // Открытие документа по deep-link из помощника: /documents?doc=<slug>
+  useEffect(() => {
+    const slug = searchParams.get('doc');
+    if (!slug) return;
+    const found = findDocBySlug(slug);
+    if (found) {
+      setOpenDoc(found);
+      setTab('study');
+    }
+  }, [searchParams]);
 
   const orderRequests = requests.filter((r) => r.kind === 'order');
   const uploadRequests = requests.filter((r) => r.kind === uploadType);
@@ -472,40 +487,65 @@ export default function Documents({ user, requests }) {
             <p>Программы, приказы и правила — всё для учёбы в одном месте.</p>
           </div>
           <div className="study-cats">
-            <section className="study-cat">
-              <h3 className="study-cat__title">Учебный процесс</h3>
-              {[
-                ['Учебный план', 'Дисциплины, часы и формы контроля'],
-                ['Учебная программа', 'Содержание обучения по направлению'],
-                ['Календарный учебный график', 'Семестры, сессии, практика и каникулы'],
-              ].map(([n, d]) => (
-                <div className="study-doc" key={n}>
-                  <span className="study-doc__badge">PDF</span>
-                  <div className="study-doc__info">
-                    <span className="study-doc__name">{n}</span>
-                    <span className="study-doc__desc">{d}</span>
+            {DOC_CATEGORIES.map((cat) => (
+              <section className="study-cat" key={cat}>
+                <h3 className="study-cat__title">{cat}</h3>
+                {STUDY_DOCS.filter((d) => d.category === cat).map((d) => (
+                  <div className="study-doc" key={d.slug}>
+                    <span className="study-doc__badge">PDF</span>
+                    <div className="study-doc__info">
+                      <span className="study-doc__name">{d.title}</span>
+                      <span className="study-doc__desc">{d.summary}</span>
+                    </div>
+                    <a
+                      className="study-doc__open"
+                      href={`/docs/${d.slug}.pdf`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Открыть ↗
+                    </a>
                   </div>
-                  <button className="study-doc__open">Открыть ↗</button>
+                ))}
+              </section>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {openDoc && (
+        <div
+          className="modal-overlay is-open"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setOpenDoc(null);
+          }}
+        >
+          <div className="modal" role="dialog" aria-modal="true">
+            <div className="modal__head">
+              <div className="modal__titles">
+                <h2 className="modal__title">{openDoc.title}</h2>
+                <p className="modal__subtitle">{openDoc.category}</p>
+              </div>
+              <button className="modal__close" onClick={() => setOpenDoc(null)} aria-label="Закрыть">
+                ×
+              </button>
+            </div>
+            <div className="study-full">
+              {openDoc.sections.map((s) => (
+                <div className="study-full__section" key={s.heading}>
+                  <h3 className="study-full__heading">{s.heading}</h3>
+                  <p className="study-full__text">{s.text}</p>
                 </div>
               ))}
-            </section>
-            <section className="study-cat">
-              <h3 className="study-cat__title">Приказы и положения</h3>
-              {[
-                ['Приказы вуза', 'Организация учебной деятельности'],
-                ['Положение об аттестации', 'Порядок зачётов, экзаменов и пересдач'],
-                ['Правила внутреннего распорядка', 'Права и обязанности студентов'],
-              ].map(([n, d]) => (
-                <div className="study-doc" key={n}>
-                  <span className="study-doc__badge">PDF</span>
-                  <div className="study-doc__info">
-                    <span className="study-doc__name">{n}</span>
-                    <span className="study-doc__desc">{d}</span>
-                  </div>
-                  <button className="study-doc__open">Открыть ↗</button>
-                </div>
-              ))}
-            </section>
+              <a
+                className="study-full__pdf"
+                href={`/docs/${openDoc.slug}.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Скачать PDF ↗
+              </a>
+            </div>
           </div>
         </div>
       )}

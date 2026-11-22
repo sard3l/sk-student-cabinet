@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/session.js';
 import { getChatHistory, saveChatMessage } from '@/lib/db.js';
 import { botReply } from '@/lib/bot.js';
+import { docAnswer } from '@/lib/docbot.js';
 import { crossOriginDenied } from '@/lib/security.js';
 
 const MAX_MESSAGE = 1000;
@@ -29,7 +30,7 @@ export async function POST(req) {
   const firstName = user.name.split(/\s+/).pop();
   saveChatMessage(user.id, 'user', message, null, null);
 
-  const reply = botReply(message, firstName);
+  const reply = docAnswer(message) || botReply(message, firstName);
   const saved = saveChatMessage(user.id, 'assistant', reply.text, reply.actionLabel || null, reply.actionHref || null);
 
   return NextResponse.json({ ok: true, reply: saved });

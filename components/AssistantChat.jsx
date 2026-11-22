@@ -2,6 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react';
 
+const SUGGESTIONS = [
+  'Как пересдать экзамен?',
+  'Когда сессия?',
+  'Что будет за пропуски?',
+  'Как получить справку?',
+];
+
 export default function AssistantChat({ name, todayLabel, initialMessages }) {
   const firstName = name.split(/\s+/).pop();
   const [messages, setMessages] = useState(initialMessages || []);
@@ -80,6 +87,18 @@ export default function AssistantChat({ name, todayLabel, initialMessages }) {
       </div>
 
       <div className="assistant-chat__compose">
+        <div className="assistant-suggestions">
+          {SUGGESTIONS.map((q) => (
+            <button
+              key={q}
+              className="assistant-chip"
+              onClick={() => send(q)}
+              disabled={sending}
+            >
+              {q}
+            </button>
+          ))}
+        </div>
         <div className="assistant-input">
           <input
             className="assistant-input__field"

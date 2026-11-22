@@ -2411,6 +2411,48 @@ ul {
   background: none;
   border: none;
   cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Полный текст документа (модалка) */
+.study-full {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.study-full__section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.study-full__heading {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--green);
+}
+
+.study-full__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--green-dark);
+}
+
+.study-full__pdf {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--green);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 /* ---------- Achievements (Достижения) ---------- */
@@ -2937,6 +2979,41 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.assistant-suggestions {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.assistant-suggestions::-webkit-scrollbar {
+  display: none;
+}
+
+.assistant-chip {
+  flex: none;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.assistant-chip:hover {
+  border-color: var(--green);
+}
+
+.assistant-chip:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .assistant-input {
