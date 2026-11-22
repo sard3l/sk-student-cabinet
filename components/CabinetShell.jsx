@@ -20,6 +20,8 @@ export default function CabinetShell({ user, notifications, children }) {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const baseNav =
     user.role === 'staff'
@@ -51,6 +53,17 @@ export default function CabinetShell({ user, notifications, children }) {
     .slice(0, 2)
     .toUpperCase();
 
+  const searchQuery = query.trim().toLowerCase();
+  const searchResults = searchQuery
+    ? navItems.filter((i) => i.label.toLowerCase().includes(searchQuery))
+    : navItems;
+
+  function goSearch(href) {
+    setSearchOpen(false);
+    setQuery('');
+    router.push(href);
+  }
+
   const group = user.group_name || (user.role === 'staff' ? 'Сотрудник' : '');
 
   function isActive(href) {
@@ -77,7 +90,48 @@ export default function CabinetShell({ user, notifications, children }) {
             </button>
             <div className="search">
               <img src="/assets/icons/search.svg" alt="" width="24" height="24" />
-              <span className="search__placeholder">Поиск</span>
+              <input
+                className="search__input"
+                type="text"
+                placeholder="Поиск по разделам"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setSearchOpen(true);
+                }}
+                onFocus={() => setSearchOpen(true)}
+                onBlur={() => setTimeout(() => setSearchOpen(false), 150)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (searchResults[0]) goSearch(searchResults[0].href);
+                  }
+                  if (e.key === 'Escape') setSearchOpen(false);
+                }}
+              />
+
+              {searchOpen && (
+                <div className="search-results">
+                  {searchResults.length === 0 ? (
+                    <div className="search-empty">Ничего не найдено</div>
+                  ) : (
+                    searchResults.map((item) => (
+                      <button
+                        key={item.href}
+                        type="button"
+                        className="search-result"
+                        onMouseDown={(e) => {
+                          e.preventDefault();
+                          goSearch(item.href);
+                        }}
+                      >
+                        <img src={`/assets/icons/${item.green}.svg`} alt="" width="20" height="20" />
+                        <span>{item.label}</span>
+                      </button>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -118,9 +172,6 @@ export default function CabinetShell({ user, notifications, children }) {
           </nav>
 
           <div className="sidebar__footer">
-            <button className="icon-btn" aria-label="Настройки">
-              <img src="/assets/icons/settings.svg" alt="" width="24" height="24" />
-            </button>
             <button className="icon-btn" onClick={logout} aria-label="Выйти">
               <img src="/assets/icons/logout.svg" alt="" width="24" height="24" />
             </button>
@@ -177,10 +228,6 @@ export default function CabinetShell({ user, notifications, children }) {
             </div>
 
             <div className="mobile-menu__footer">
-              <button className="mobile-menu__action" aria-label="Настройки">
-                <img src="/assets/icons/settings.svg" alt="" width="22" height="22" />
-                <span>Настройки</span>
-              </button>
               <button className="mobile-menu__action" onClick={logout} aria-label="Выйти">
                 <img src="/assets/icons/logout.svg" alt="" width="22" height="22" />
                 <span>Выйти</span>

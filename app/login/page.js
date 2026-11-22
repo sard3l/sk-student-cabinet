@@ -116,7 +116,6 @@ export default function LoginPage() {
               <input type="checkbox" name="remember" />
               Запомнить меня
             </label>
-            <span className="login-forgot">Забыли пароль?</span>
           </div>
 
           <button type="submit" className="login-submit">
@@ -124,24 +123,6 @@ export default function LoginPage() {
           </button>
 
           {error && <div className="login-error is-visible">Неверный логин или пароль. Попробуйте ещё раз.</div>}
-
-          <div className="login-help">
-            <span className="login-help__q">Не получается войти?</span>
-            <span className="login-help__support">Обратиться в поддержку ↗</span>
-            <span className="login-help__note">Нет данных для входа? Обратитесь в учебный офис.</span>
-          </div>
-
-          <div className="login-demo">
-            <strong>Демо-доступ:</strong>
-            <br />
-            студент — <strong>ivanov</strong> / student1
-            <br />
-            староста — <strong>vetrova</strong> / student2
-            <br />
-            студент — <strong>sidorov</strong> / student3
-            <br />
-            сотрудник — <strong>lebedeva</strong> / staff1
-          </div>
 
           <span className="login-concept">
             Концепт для конкурса «Цифровой деканат будущего». Не является официальным сервисом вуза. Все
