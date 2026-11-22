@@ -13,6 +13,8 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "pdfkit": "^0.21.0"
+    "docx": "^9.16.0",
+    "pdfkit": "^0.21.0",
+    "sharp": "^0.35.5"
   }
 }
