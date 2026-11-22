@@ -1340,6 +1340,19 @@ ul {
   color: var(--event-ink-2);
 }
 
+.event--cancelled {
+  opacity: 0.6;
+}
+
+.class--cancelled {
+  opacity: 0.65;
+}
+
+.badge--cancelled {
+  background: #fdece7;
+  color: #a53a28;
+}
+
 /* Legend */
 .week-legend {
   display: flex;
@@ -3793,6 +3806,195 @@ ul {
   cursor: pointer;
 }
 
+.staff-sub {
+  margin: 6px 0 14px;
+  font-size: 14px;
+  color: var(--muted-3);
+}
+
+.staff-item__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.staff-btn {
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.staff-btn:hover {
+  border-color: var(--green);
+}
+
+.staff-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.staff-btn--ready {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.staff-upload {
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 9px;
+  background: var(--tint);
+  color: var(--green);
+  border: 1px solid var(--green);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.staff-download {
+  height: 38px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9px;
+  background: #eaf3ec;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- Расписание сотрудника ---------- */
+.staff-schedule {
+  margin-top: 18px;
+}
+
+.staff-sched-toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.staff-sched-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.staff-sched {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.staff-sched.is-cancelled {
+  background: #fbf7f5;
+  border-color: #e6c9c0;
+}
+
+.staff-sched__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.staff-sched__time {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.staff-sched__disc {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.staff-sched__meta {
+  font-size: 12px;
+  color: var(--muted-3);
+}
+
+.staff-sched__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.staff-sched__teacher.field__input {
+  width: 170px;
+  height: 38px;
+  padding: 0 10px;
+}
+
+.staff-sched__cancel {
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #e0b4a8;
+  border-radius: 9px;
+  background: #fff;
+  color: #a53a28;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.staff-sched__cancel.is-on {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--tint);
+}
+
+.staff-sched__badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #fdece7;
+  color: #a53a28;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .staff-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .staff-sched {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .staff-sched__teacher.field__input {
+    width: 100%;
+  }
+
+  .staff-sched__actions {
+    justify-content: flex-start;
+  }
+}
+
 /* ---------- Notifications bell ---------- */
 .notif {
   position: relative;
@@ -4254,6 +4456,26 @@ ul {
 
 .oh-table--upload .oh-row {
   grid-template-columns: 104px minmax(0, 1.6fr) minmax(0, 0.7fr) 160px;
+}
+
+.oh-table--order .oh-row {
+  grid-template-columns: 130px minmax(0, 1fr) 150px 110px;
+}
+
+.oh-download {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.oh-download:hover {
+  text-decoration: underline;
+}
+
+.oh-muted {
+  color: var(--muted-3);
 }
 
 .oh-row--head {

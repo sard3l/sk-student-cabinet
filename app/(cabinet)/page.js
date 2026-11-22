@@ -1,8 +1,7 @@
-import { getScheduleBetween, getDisciplines, getAllRequests, getNotes, getNews } from '@/lib/db.js';
+import { getScheduleBetween, getDisciplines, getNotes, getNews } from '@/lib/db.js';
 import { getCurrentUser } from '@/lib/session.js';
 import { redirect } from 'next/navigation';
 import { todayISO, formatDateRu } from '@/lib/term.js';
-import StaffRequests from '@/components/StaffRequests.jsx';
 import NotesWidget from '@/components/NotesWidget.jsx';
 
 const BADGE = {
@@ -16,7 +15,7 @@ export default async function HomePage() {
   if (!user) redirect('/login');
 
   if (user.role === 'staff') {
-    return <StaffRequests requests={getAllRequests()} />;
+    redirect('/staff/requests');
   }
 
   const today = todayISO();
@@ -55,7 +54,7 @@ export default async function HomePage() {
             {schedule.map((c, i) => {
               const current = i === 0;
               return (
-                <li key={c.id} className={'class' + (current ? ' class--current' : '')}>
+                <li key={c.id} className={'class' + (current ? ' class--current' : '') + (c.cancelled ? ' class--cancelled' : '')}>
                   <div className="class__body">
                     <div className="class__title">{c.discipline}</div>
                     <div className="class__row">
@@ -78,7 +77,9 @@ export default async function HomePage() {
                     </div>
                   </div>
                   <div className="class__side">
-                    <span className={'badge ' + (BADGE[c.type] || 'badge--lecture')}>{c.type}</span>
+                    <span className={'badge ' + (c.cancelled ? 'badge--cancelled' : (BADGE[c.type] || 'badge--lecture'))}>
+                      {c.cancelled ? 'Отменено' : c.type}
+                    </span>
                     <div className="class__when">
                       {current && <span className="class__now">Сейчас</span>}
                       <span className="class__time">

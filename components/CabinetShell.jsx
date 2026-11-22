@@ -23,7 +23,10 @@ export default function CabinetShell({ user, notifications, children }) {
 
   const baseNav =
     user.role === 'staff'
-      ? [{ href: '/', label: 'Заявки', white: 'docs', green: 'docs_green', mobile: true, short: 'Заявки' }]
+      ? [
+          { href: '/staff/requests', label: 'Заявки', white: 'docs', green: 'docs_green', mobile: true, short: 'Заявки' },
+          { href: '/staff/schedule', label: 'Расписание', white: 'calendar_today', green: 'calendar_green', mobile: true, short: 'Расписание' },
+        ]
       : NAV;
 
   const navItems =

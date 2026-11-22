@@ -279,11 +279,12 @@ export default function Documents({ user, requests }) {
             <span>{orderRequests.length} заявки</span>
           </div>
           <div className="oh-scroll">
-            <div className="oh-table">
+            <div className="oh-table oh-table--order">
               <div className="oh-row oh-row--head">
                 <div className="oh-cell">Дата заявки</div>
                 <div className="oh-cell">Тип документа</div>
                 <div className="oh-cell">Статус</div>
+                <div className="oh-cell">Файл</div>
               </div>
               {orderRequests.map((r) => (
                 <div className="oh-row" key={r.id}>
@@ -297,6 +298,20 @@ export default function Documents({ user, requests }) {
                     <span className={'oh-badge ' + statusClass(r.status)}>
                       {r.status}
                     </span>
+                  </div>
+                  <div className="oh-cell">
+                    {r.result_file ? (
+                      <a
+                        className="oh-download"
+                        href={`/api/requests/${r.id}/file`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Скачать
+                      </a>
+                    ) : (
+                      <span className="oh-cell__text oh-muted">—</span>
+                    )}
                   </div>
                 </div>
               ))}

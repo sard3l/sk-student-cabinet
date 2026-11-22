@@ -119,11 +119,12 @@ export default async function CalendarPage({ searchParams }) {
                       {(byDate[date] || []).map((s) => (
                         <div
                           key={s.id}
-                          className={'event ' + (TYPE_CLASS[s.type] || 'event--lecture')}
+                          className={'event ' + (TYPE_CLASS[s.type] || 'event--lecture') + (s.cancelled ? ' event--cancelled' : '')}
                           style={{ top: timeToTop(s.time_start) }}
                         >
                           <div className="event__time">
                             {fmtTime(s.time_start)}–{fmtTime(s.time_end)}
+                            {s.cancelled ? ' · Отменено' : ''}
                           </div>
                           <div className="event__title">{s.discipline}</div>
                           <div className="event__meta">
