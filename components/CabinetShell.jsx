@@ -21,10 +21,25 @@ export default function CabinetShell({ user, notifications, children }) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navItems =
+  const baseNav =
     user.role === 'staff'
       ? [{ href: '/', label: 'Заявки', white: 'docs', green: 'docs_green', mobile: true, short: 'Заявки' }]
       : NAV;
+
+  const navItems =
+    Number(user.is_starosta) === 1
+      ? [
+          ...baseNav,
+          {
+            href: '/starosta',
+            label: 'Староста',
+            white: 'starosta',
+            green: 'starosta_green',
+            mobile: false,
+            short: 'Староста',
+          },
+        ]
+      : baseNav;
 
   const initials = (user.name || '')
     .split(/\s+/)

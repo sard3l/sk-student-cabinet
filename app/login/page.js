@@ -136,7 +136,9 @@ export default function LoginPage() {
             <br />
             студент — <strong>ivanov</strong> / student1
             <br />
-            студент — <strong>vetrova</strong> / student2
+            староста — <strong>vetrova</strong> / student2
+            <br />
+            студент — <strong>sidorov</strong> / student3
             <br />
             сотрудник — <strong>lebedeva</strong> / staff1
           </div>
