@@ -272,6 +272,11 @@ ul {
   flex-direction: column;
   align-items: flex-end;
   gap: 2px;
+  text-decoration: none;
+}
+
+.profile:hover .profile__name {
+  text-decoration: underline;
 }
 
 .profile__name {
@@ -298,6 +303,100 @@ ul {
   font-size: 24px;
   font-weight: 800;
   color: var(--green-500);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ---------- Профиль студента ---------- */
+.profile-page {
+  margin-top: 18px;
+}
+
+.student-card {
+  max-width: 640px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.student-card__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.student-card__avatar {
+  width: 64px;
+  height: 64px;
+  flex: none;
+  border-radius: 18px;
+  background: var(--tint);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.student-card__name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+  color: var(--green-dark);
+}
+
+.student-card__role {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--muted-3);
+}
+
+.student-card__rows {
+  margin: 0;
+  padding: 18px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.student-card__row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.student-card__label {
+  width: 130px;
+  flex: none;
+  font-size: 13px;
+  color: var(--muted-3);
+}
+
+.student-card__value {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--green-dark);
+}
+
+@media (max-width: 600px) {
+  .student-card {
+    padding: 20px;
+  }
+
+  .student-card__row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .student-card__label {
+    width: auto;
+  }
 }
 
 .icon-btn {

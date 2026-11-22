@@ -64,13 +64,13 @@ export default function CabinetShell({ user, notifications, children }) {
           </div>
 
           <div className="topbar__right">
-            <div className="profile">
+            <Link className="profile" href="/profile" aria-label="Открыть профиль">
               <span className="profile__name">{user.name}</span>
               <span className="profile__group">{group}</span>
-            </div>
-            <div className="avatar" aria-hidden="true">
+            </Link>
+            <Link className="avatar" href="/profile" aria-label="Открыть профиль">
               {initials}
-            </div>
+            </Link>
             <NotificationsBell notifications={notifications} />
           </div>
         </div>
